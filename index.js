@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron');
+require('dotenv').config()
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
