@@ -1,1 +1,1 @@
-# gpt-electron
+# gpt-translate
