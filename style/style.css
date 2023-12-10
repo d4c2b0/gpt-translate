@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100vh;
+    padding: 8px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+#translate-form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 8px;
+}
+
+.translate-textarea {
+    display: flex;
+    flex-grow: 1;
+    gap: 8px;
+}
+
+.translate-textarea textarea {
+    flex-grow: 1;
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    resize: none;
+}
+
+@media screen and (max-width: 768px) {
+    .translate-textarea {
+        flex-direction: column;
+    }
+}

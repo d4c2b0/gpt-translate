@@ -5,10 +5,33 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>マイアプリ</title>
+    <link rel="stylesheet" href="./style/style.css">
   </head>
   <body>
-    <h1>Hello, world!</h1>
-
+    <header>
+      <h1>Hello, world!</h1>
+    </header>
+    <main class="translator">
+      <form id="translate-form">
+        <div class="translate-textarea">
+          <textarea name="translate-input" id="translate-input" placeholder="Enter text"></textarea>
+          <textarea name="translate-output" id="translate-output" readonly></textarea>
+        </div>
+        <div class="translate-control">
+          <select name="translate-language" id="translate-language">
+            <option value="Japanese">Japanese</option>
+            <option value="English">English</option>
+            <option value="German">German</option>
+            <option value="Korean">Korean</option>
+            <option value="Indonesian">Indonesian</option>
+          </select>
+          <button type="submit">Translate</button>
+        </div>
+      </form>
+    </main>
+    <footer>
+      <p id="info">Placeholder text!</p>
+    </footer>
     <script src="renderer.js"></script>
   </body>
 </html>
