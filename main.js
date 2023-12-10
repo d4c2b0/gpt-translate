@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const { OpenAI } = require("openai");
 
 require('dotenv').config()
@@ -7,16 +7,21 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
-async function chatTest() {
-  const chatCompletion = await openai.chat.completions.create({
-    messages: [{ role: 'user', content: 'Say this is a test' }],
-    model: 'gpt-3.5-turbo',
-  });
-
-  console.log(chatCompletion.choices[0].message.content);
+async function translateText(text, into, from = "") {
+  try {
+    const chatCompletion = await openai.chat.completions.create({
+      messages: [
+        { role: 'user', content: `${text}` },
+        { role: 'user', content: `Translate that ${from} text into ${into}.`}
+      ],
+      model: 'gpt-3.5-turbo',
+    });
+    console.log(chatCompletion.choices[0].message.content);
+  } catch (error) {
+    console.error('Error while translate text: ' + error)
+    throw error;
+  }
 }
-
-chatTest();
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
