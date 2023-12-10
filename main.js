@@ -13,12 +13,16 @@ async function translateText(text, into, from = "") {
   try {
     const chatCompletion = await openai.chat.completions.create({
       messages: [
+        { role: 'user', content: `How are you?` },
+        { role: 'user', content: `Translate that text into Japanese.`},
+        { role: 'assistant', content: 'お元気ですか？'},
         { role: 'user', content: `${text}` },
         { role: 'user', content: `Translate that ${from} text into ${into}.`}
       ],
       model: 'gpt-3.5-turbo',
     });
     console.log(chatCompletion.choices[0].message.content);
+    return chatCompletion.choices[0].message.content;
   } catch (error) {
     console.error('Error while translate text: ' + error)
     throw error;
@@ -36,6 +40,15 @@ const createWindow = () => {
   });
 
   mainWindow.loadFile('index.html');
+
+  ipcMain.handle('translate-text', async (_, text, into, from = "") => {
+    try {
+      return await translateText(text, into, from);
+    } catch (error) {
+      console.error("Error while translating text: ", error);
+      throw error;
+    }
+  })
 };
 
 app.once('ready', () => {

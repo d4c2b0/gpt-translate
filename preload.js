@@ -5,3 +5,9 @@ contextBridge.exposeInMainWorld('versions', {
     chrome: () => process.versions.chrome,
     electron: () => process.versions.electron,
 })
+
+contextBridge.exposeInMainWorld('electron', {
+    translateText: async (text, into, from = "") => {
+        return await ipcRenderer.invoke('translate-text', text, into, from = "");
+    }
+})

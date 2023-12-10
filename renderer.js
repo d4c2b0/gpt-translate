@@ -1,5 +1,7 @@
 console.log('Hello, world.');
 
+console.log(window.electron);
+
 const information = document.getElementById('info')
 information.innerText = `This app is using Chrome (v${versions.chrome()}), Node.js (v${versions.node()}), and Electron (v${versions.electron()})`
 
@@ -13,5 +15,9 @@ translateForm.addEventListener("submit", async (event) => {
     const userInput = translateInput.value.trim();
     if (!userInput) return;
 
-    translateOutput.textContent = userInput;
+    const response = await window.electron.translateText(userInput, "Japanese");
+
+    console.log(response);
+
+    translateOutput.textContent = response;
 })
