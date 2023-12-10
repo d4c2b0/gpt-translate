@@ -1,7 +1,9 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path')
 const { OpenAI } = require("openai");
-
 require('dotenv').config()
+
+console.log('Hello from Electron 👋')
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -25,9 +27,12 @@ async function translateText(text, into, from = "") {
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
-    width: 600,
-    height: 400,
+    width: 800,
+    height: 600,
     title: 'マイアプリ',
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
   });
 
   mainWindow.loadFile('index.html');
@@ -35,6 +40,16 @@ const createWindow = () => {
 
 app.once('ready', () => {
   createWindow();
+
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
+  })
 });
 
-app.once('window-all-closed', () => app.quit());
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
