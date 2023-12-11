@@ -39,7 +39,7 @@ const createWindow = () => {
     }
   });
 
-  mainWindow.loadFile('index.html');
+  mainWindow.loadFile('./src/index.html');
 
   ipcMain.handle('translate-text', async (_, text, into, from = "") => {
     try {
